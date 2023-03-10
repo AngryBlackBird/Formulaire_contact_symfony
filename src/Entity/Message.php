@@ -11,6 +11,7 @@ class Message
 {
     const STATUS_NOT_OPEN = 0;
     const STATUS_OPEN = 1;
+    const STATUS_PROCESS = 2;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

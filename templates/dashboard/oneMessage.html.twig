@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                    <div class="position-sticky pt-3 sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ path('app_dashboard') }}">
+                                    Message
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>{{ message.author.email }}</h2>
+                            <h3>{{ message.author.name }}</h3>
+                        </div>
+                        <div>
+                            {% if  message.status !=  constant('App\\Entity\\Message::STATUS_PROCESS') %}
+                                <a class="btn btn-success"
+                                   href="{{ path('app_dashboard_processed_message', {"id": message.id}) }}">Marquer
+                                    comme terminé</a>
+                                <a class="btn btn-warning"
+                                   href="{{ path('app_dashboard_unread_message', {"id": message.id}) }}">Marquer
+                                    comme non lu</a>
+                            {% endif %}
+                            <a class="btn btn-primary"
+                               href="{{ path('app_dashboard_oneClient', {"id": message.author.id}) }}">Revenir au
+                                client</a>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Message de {{ message.author.name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ message.datetime|date("D, d M Y H:i") }}</h6>
+                                <p class="card-text">{{ message.content }}</p>
+                            </div>
+                            {% if message.status ==  constant('App\\Entity\\Message::STATUS_NOT_OPEN') %}
+                                <div class="card-footer bg-primary text-bg-primary">
+                                    Non lu
+                                </div>
+                            {% elseif message.status ==  constant('App\\Entity\\Message::STATUS_OPEN') %}
+                                <div class="card-footer">
+                                    Ouvert
+                                </div>
+                            {% else %}
+                                <div class="card-footer bg-success text-bg-success">
+                                    Terminé
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

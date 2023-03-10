@@ -10,7 +10,7 @@
                     <div class="position-sticky pt-3 sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">
+                                <a class="nav-link active" aria-current="page" href="{{ path('app_dashboard') }}">
                                     Message
                                 </a>
                             </li>
@@ -34,7 +34,9 @@
                                     <td>{{ client.email }}</td>
                                     <td>{{ client.name }}</td>
                                     <td>
-                                        <button class="btn btn-primary position-relative">
+                                        <a href="{{ path('app_dashboard_oneClient', {"id": client.id}) }}" class="btn
+                                        btn-primary
+                                        position-relative">
                                             {{ client.messages.count }}
                                             <span class="position-absolute top-0 start-100
                                             translate-middle
@@ -43,7 +45,7 @@
                                            {{ GetNbMessageNotOpen(client.messages.values) }}
                                             <span class="visually-hidden">unread messages</span>
                                           </span>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}

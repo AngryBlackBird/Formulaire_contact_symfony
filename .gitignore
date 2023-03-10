@@ -8,7 +8,8 @@
 /var/
 /vendor/
 /.idea
-/ressources/messages/*
+
+
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

@@ -23,10 +23,21 @@
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{ path('app_home') }}" class="nav-link px-2 link-secondary">Home</a></li>
                 <li><a href="{{ path('app_contact') }}" class="nav-link px-2 link-dark">Contact</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_dashboard') }}" class="nav-link px-2 link-dark">Dashboard</a></li>
+                {% endif %}
             </ul>
 
             <div class="col-md-3 text-end">
-                <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-primary me-2">Se connecter</a>
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_logout') }}" type="button" class="btn btn-primary me-2">Se
+                        déconnecter</a>
+
+                {% else %}
+                    <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-primary me-2">Se
+                        connecter</a>
+
+                {% endif %}
             </div>
         </div>
     </div>

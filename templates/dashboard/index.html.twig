@@ -18,7 +18,15 @@
                     </div>
                 </nav>
                 <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <h2>Tout les messages</h2>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Tout les messages</h2>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary"
+                               href="{{ path('app_dashboard_download_jsonMessage') }}">Télécharger tous les messages</a>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
@@ -41,8 +49,15 @@
                                             <span class="position-absolute top-0 start-100
                                             translate-middle
                                              badge
-                                            rounded-pill bg-danger">
+                                            rounded-pill bg-warning">
                                            {{ GetNbMessageNotOpen(client.messages.values) }}
+                                            <span class="visually-hidden">unread messages</span>
+                                          </span>
+                                            <span class="position-absolute top-0 start-0
+                                            translate-middle
+                                             badge
+                                            rounded-pill bg-success">
+                                           {{ GetNbMessagePROCESS(client.messages.values) }}
                                             <span class="visually-hidden">unread messages</span>
                                           </span>
                                         </a>

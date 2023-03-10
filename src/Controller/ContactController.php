@@ -25,6 +25,9 @@ class ContactController extends AbstractController
     }
 
 
+    /**
+     * @throws \JsonException
+     */
     #[Route('/contact', name: 'app_contact')]
     public function index(Request $request, ClientRepository $clientRepository, EntityManagerInterface $entityManager): Response
     {
@@ -48,6 +51,17 @@ class ContactController extends AbstractController
             $entityManager->persist($message);
             $entityManager->persist($author);
             $entityManager->flush();
+
+            $data = [
+                'client' => ["email" => $author->getEmail(), "name" => $author->getName()],
+                'message' => $message->getContent(),
+                'info' => ["datetime" => $message->getDatetime()]
+            ];
+
+            $filename = $this->getParameter('messages_directory') . "/" . $author->getEmail() . "_" . $message->getDatetime()->format("Y-d-h") . "_" . $message->getId() . ".json";
+
+            $json = json_encode($data, JSON_THROW_ON_ERROR);
+            file_put_contents($filename, $json);
 
             $this->addFlash("success", "Votre message a bien été envoyé, il sera traité dans les plus brefs délais.");
         }

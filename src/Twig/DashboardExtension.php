@@ -13,6 +13,8 @@ class DashboardExtension extends AbstractExtension
     {
         return [
             new TwigFunction('GetNbMessageNotOpen', array($this, 'getNbMessageNotOpen')),
+            new TwigFunction('GetNbMessagePROCESS', array($this, 'getNbMessagePROCESS')),
+
         ];
     }
 
@@ -21,6 +23,16 @@ class DashboardExtension extends AbstractExtension
         $count = 0;
         foreach ($messages as $message) {
             if ($message->getStatus() === Message::STATUS_NOT_OPEN) {
+                ++$count;
+            }
+        }
+        return $count;
+    }
+    public function getNbMessagePROCESS( $messages): int
+    {
+        $count = 0;
+        foreach ($messages as $message) {
+            if ($message->getStatus() === Message::STATUS_PROCESS) {
                 ++$count;
             }
         }

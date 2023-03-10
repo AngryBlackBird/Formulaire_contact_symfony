@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Message;
 use App\Repository\ClientRepository;
-use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use ZipArchive;
 
 #[Route('/dashboard')]
 class DashboardController extends AbstractController
@@ -55,6 +58,7 @@ class DashboardController extends AbstractController
         }
         return $this->redirectToRoute('app_dashboard_oneClient', ["id" => $message->getAuthor()->getId()]);
     }
+
     #[Route('/message/processed/{id}', name: 'app_dashboard_processed_message')]
     public function processedMessage(Message $message, EntityManagerInterface $entityManager): RedirectResponse
     {
@@ -65,4 +69,33 @@ class DashboardController extends AbstractController
         }
         return $this->redirectToRoute('app_dashboard_oneClient', ["id" => $message->getAuthor()->getId()]);
     }
+
+    #[Route('/download/message', name: 'app_dashboard_download_jsonMessage')]
+    public function downloadJsonMessage(): BinaryFileResponse|RedirectResponse
+    {
+
+        $zip = new \ZipArchive();
+        $finder = new Finder();
+
+        $finder->files()->in($this->getParameter("messages_directory"));
+        if ($finder->count() > 0) {
+            foreach ($finder as $file) {
+                if ($zip->open('messages.zip', \ZipArchive::CREATE) !== true) {
+                    throw new FileException('Zip file could not be created/opened.');
+                }
+                $zip->addFile($file->getRealpath(), basename($file->getRealpath()));
+                if (!$zip->close()) {
+                    throw new FileException('Zip file could not be closed.');
+                }
+            }
+            $response = new BinaryFileResponse('messages.zip');
+            $response->deleteFileAfterSend(true);
+        } else {
+            $response = $this->redirectToRoute("app_dashboard");
+        }
+
+
+        return $response;
+    }
+
 }

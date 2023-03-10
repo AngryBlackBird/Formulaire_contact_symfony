@@ -7,7 +7,7 @@ Il se compose simplement d'un formulaire de contact avec une vérification coté
 Ce formulaire n'est pas directement lié à une entité, car il existe deux entités : Client et Message.
 Ces deux entités sont liées en ManyToOne/OneToMany, et pour chaque nouvelle adresse mail détecter, un nouveau client est alors crée, sinon, seulement un nouveau message.
 
-Un message peut avoir 3 statuts différents : non lu, lu et terminé. Ces 3 statuts sont des constance et donc il est tout à fait possible d'en rajouter ultérieurement sans grand changement.
+Un message peut avoir 3 statuts différents : non lu, lu et terminé. Ces 3 statuts sont des constante et donc il est tout à fait possible d'en rajouter ultérieurement sans grand changement dans le code.
 Depuis la partie administrateur, il est alors possible de modifier ce statut.
 Comme demandé, nous retrouvons distinctement tous les messages pour chaque client.
 

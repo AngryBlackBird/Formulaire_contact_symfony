@@ -3,19 +3,16 @@
 {% block title %}Hello ContactController!{% endblock %}
 
 {% block body %}
+
     <main class="container-fluid">
         <div class="row">
             <div class="col-12 text-center">
-                <h1>Formulaire de contact</h1>
-                <p>Envoyez votre demande via ce formulaire</p>
+                <h1>Exercice technique de Thibault Mora-Bire pour Artmajeur</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 ">
-                <div class="container">
-                    {{ form_start(form) }}
-                    {{ form_end(form) }}
-                </div>
+            <div class="col-12 text-center">
+                <a class="btn btn-primary" href="{{ path('app_contact') }}">Formulaire de contact</a>
             </div>
         </div>
     </main>

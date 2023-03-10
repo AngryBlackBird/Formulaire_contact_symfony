@@ -48,6 +48,8 @@ class ContactController extends AbstractController
             $entityManager->persist($message);
             $entityManager->persist($author);
             $entityManager->flush();
+
+            $this->addFlash("success", "Votre message a bien été envoyé, il sera traité dans les plus brefs délais.");
         }
         return $this->render('contact/index.html.twig', [
             'form' => $form,

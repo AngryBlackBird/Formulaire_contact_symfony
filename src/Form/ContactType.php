@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 
 class ContactType extends AbstractType
 {
@@ -19,7 +20,8 @@ class ContactType extends AbstractType
                 "attr" => ["class" => "form-control"],
                 "row_attr" => ["class" => "mb-3"],
                 "label" => "Votre email",
-                "required" => true
+                "required" => true,
+                'constraints' => new Email(),
             ])
             ->add('name', TextType::class, [
                 "attr" => ["class" => "form-control"],

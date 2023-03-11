@@ -19,3 +19,16 @@ Depuis la partie administration, il est possible de télécharger tout les fichi
 
 
 Concernant le visuel, j'ai simplement utilisé Bootstrap par praticité et rapidité. Il reste cependant rudimentaire.
+
+# Installation
+
+- 1 . cloner le répo
+- 2 . composer install
+- 3 . yarn install
+- 4 . yarn build 
+- 5 . configurer la bdd dans le .env.local
+- 6 . php bin/console doctrine:database:create
+- 7 . php bin/console doctrine:migration:migrate 
+- 8 . php bin/console doctrine:fixture:load (mail : admin@amdin.fr ; mdp : bonjour)
+- 9 . lancer le serveur local 
+- 10 . tout est prêt 

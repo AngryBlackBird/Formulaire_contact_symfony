@@ -1,7 +1,4 @@
-# Test technique pour Artmajeur
-
-
-Comme demandé, j'ai réalisé un formulaire de contact basé sur Symfony.
+J'ai réalisé un formulaire de contact basé sur Symfony.
 
 Il se compose simplement d'un formulaire de contact avec une vérification coté back de l'input email.
 Ce formulaire n'est pas directement lié à une entité, car il existe deux entités : Client et Message.
